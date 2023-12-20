@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
-
+//mejorar
 namespace LaptoManiaOficial.Controllers
 {
     public class ClientesController : Controller
