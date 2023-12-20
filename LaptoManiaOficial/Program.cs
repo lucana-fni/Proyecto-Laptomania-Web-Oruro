@@ -2,7 +2,6 @@ using LaptoManiaOficial.Contexto;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-//Hola esto es un comentario xdxdxd
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -45,4 +44,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
 
-app.Run();
+
