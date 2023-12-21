@@ -53,7 +53,7 @@ namespace LaptoManiaOficial.Controllers
         // GET: Ventas/Create
         public IActionResult Create()
         {
-   
+
             // Llenar ViewData con datos para las listas desplegables en la vista
             // 1. Lista de Clientes: Clave: "ClienteId", Valor: SelectList de Clientes con "Id" como valor y "Ci" como texto
             var clientes = _context.Clientes.ToList();
@@ -212,14 +212,14 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Ventas.Remove(venta);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool VentaExists(int id)
         {
-          return (_context.Ventas?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Ventas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         public IActionResult ReporteMensual()
