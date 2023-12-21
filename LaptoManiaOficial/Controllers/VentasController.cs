@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
+using Microsoft.AspNetCore.Authorization;
+using NuGet.Packaging.Signing;
 
 namespace LaptoManiaOficial.Controllers
 {
+    [Authorize]
     public class VentasController : Controller
     {
         private readonly MiContext _context;
@@ -50,28 +53,63 @@ namespace LaptoManiaOficial.Controllers
         // GET: Ventas/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Ci");
-            ViewData["EquipoId"] = new SelectList(_context.Equipos, "Id", "Codigo");
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "CorreoElectronico");
+
+            // Llenar ViewData con datos para las listas desplegables en la vista
+            // 1. Lista de Clientes: Clave: "ClienteId", Valor: SelectList de Clientes con "Id" como valor y "Ci" como texto
+            var clientes = _context.Clientes.ToList();
+            var equiposDisponibles = _context.Equipos.Where(e => e.Disponibilidad).ToList();
+            var usuarios = _context.Usuarios.ToList();
+
+            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Ci");
+            ViewData["EquipoId"] = new SelectList(equiposDisponibles, "Id", "Codigo");
+            ViewData["UsuarioId"] = new SelectList(usuarios, "Id", "NombreCompleto");
+
             return View();
         }
 
         // POST: Ventas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FechaVenta,UsuarioId,ClienteId,EquipoId")] Venta venta)
+        public async Task<IActionResult> Create(Venta venta)
         {
+            var clientes = _context.Clientes.ToList();
+            var equiposDisponibles = _context.Equipos.Where(e => e.Disponibilidad).ToList();
+            var usuarios = _context.Usuarios.ToList();
+
             if (ModelState.IsValid)
             {
+                if (!_context.Usuarios.Any(u => u.Id == venta.UsuarioId))
+                {
+                    // El UsuarioId no es válido
+                    ModelState.AddModelError("UsuarioId", "El UsuarioId no es válido");
+
+                    ViewData["ClienteId"] = new SelectList(clientes, "Id", "Ci", venta.ClienteId);
+                    ViewData["EquipoId"] = new SelectList(equiposDisponibles, "Id", "Codigo", venta.EquipoId);
+                    ViewData["UsuarioId"] = new SelectList(usuarios, "Id", "CorreoElectronico", venta.UsuarioId);
+
+                    return View(venta);
+                }
+
+                // Actualizar la disponibilidad del equipo
+                var equipo = await _context.Equipos.FindAsync(venta.EquipoId);
+                if (equipo != null)
+                {
+                    equipo.Disponibilidad = false;
+                    _context.Update(equipo);
+                }
+
                 _context.Add(venta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Ci", venta.ClienteId);
-            ViewData["EquipoId"] = new SelectList(_context.Equipos, "Id", "Codigo", venta.EquipoId);
-            ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "CorreoElectronico", venta.UsuarioId);
+
+            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Ci", venta.ClienteId);
+            ViewData["EquipoId"] = new SelectList(equiposDisponibles, "Id", "Codigo", venta.EquipoId);
+            ViewData["UsuarioId"] = new SelectList(usuarios, "Id", "CorreoElectronico", venta.UsuarioId);
+
             return View(venta);
         }
 
@@ -111,6 +149,13 @@ namespace LaptoManiaOficial.Controllers
                 try
                 {
                     _context.Update(venta);
+                    if (!_context.Usuarios.Any(u => u.Id == venta.UsuarioId))
+                    {
+                        // El UsuarioId no es válido
+                        ModelState.AddModelError("UsuarioId", "El UsuarioId no es válido");
+                        // Puedes manejar este error y devolver a la vista con un mensaje de error.
+                        return View(venta);
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -167,14 +212,32 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Ventas.Remove(venta);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool VentaExists(int id)
         {
-          return (_context.Ventas?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Ventas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public IActionResult ReporteMensual()
+        {
+            List<List<Venta>> ventasPorMes = new List<List<Venta>>();
+
+            for (int mes = 1; mes <= 12; mes++)
+            {
+                var ventasMes = _context.Ventas
+                    .Where(v => v.FechaVenta.Month == mes)
+                    .Include(v => v.Equipo) // Incluir información del equipo asociado a la venta
+                    .ToList();
+
+                ventasPorMes.Add(ventasMes);
+            }
+
+            return View(ventasPorMes);
+        }
+
     }
 }

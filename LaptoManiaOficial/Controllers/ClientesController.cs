@@ -8,8 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
 
+using Microsoft.AspNetCore.Authorization;
+
+
 namespace LaptoManiaOficial.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly MiContext _context;
@@ -22,9 +26,9 @@ namespace LaptoManiaOficial.Controllers
         // GET: Clientes
         public async Task<IActionResult> Index()
         {
-              return _context.Clientes != null ? 
-                          View(await _context.Clientes.ToListAsync()) :
-                          Problem("Entity set 'MiContext.Clientes'  is null.");
+            return _context.Clientes != null ?
+                        View(await _context.Clientes.ToListAsync()) :
+                        Problem("Entity set 'MiContext.Clientes'  is null.");
         }
 
         // GET: Clientes/Details/5
@@ -150,14 +154,14 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Clientes.Remove(cliente);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ClienteExists(int id)
         {
-          return (_context.Clientes?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Clientes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

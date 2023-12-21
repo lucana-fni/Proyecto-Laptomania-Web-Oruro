@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Registro de Ventas</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,41 +13,73 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FechaVenta)
+                Fecha
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                Nombre Vendedor
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente)
+                Correo Electrónico 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Equipo)
+                Nombre Cliente
+            </th>
+            <th>
+                Carnet
+            </th>
+            <th>
+                Código Producto
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Modelo
+            </th>
+            <th>
+                Precio
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaVenta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.CorreoElectronico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Ci)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Equipo.Codigo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.FechaVenta.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.CorreoElectronico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Ci)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.Modelo)
+                </td>
+                <td>
+                    <!-- Asegúrate de tener una propiedad Precio en tu modelo Equipo -->
+                    @Html.DisplayFor(modelItem => item.Equipo.Precio)
+                </td>
+                <td>
+                    |
+                    <a asp-action="Details" asp-route-id="@item.Id">Generar Recibo</a> |
+                    
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
