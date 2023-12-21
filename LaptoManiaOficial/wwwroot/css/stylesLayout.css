@@ -1,0 +1,29 @@
+﻿/* Estilos para el encabezado */
+header {
+    background-color: #333333; /* Cambiado a un tono oscuro */
+    padding: 10px;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #eeeeee; /* Cambiado a un tono más gris */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Agregado para redondear las esquinas */
+}
+
+.navbar-nav .nav-item {
+    margin-right: 10px;
+}
+
+
+/* Estilos para el footer */
+footer {
+    background-color: #444444;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8em;
+    border-top-left-radius: 10px; /* Curvatura en la esquina superior izquierda */
+    border-top-right-radius: 10px; /* Curvatura en la esquina superior derecha */
+}
+
