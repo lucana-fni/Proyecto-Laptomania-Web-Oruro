@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
+
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace LaptoManiaOficial.Controllers
 {
