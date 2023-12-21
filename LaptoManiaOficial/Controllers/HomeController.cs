@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace LaptoManiaOficial.Controllers
-{
+{      
+    //agregar autentificacion
+    // para el administrador y secretaria
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
