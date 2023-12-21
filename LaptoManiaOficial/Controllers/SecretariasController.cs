@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LaptoManiaOficial.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class SecretariasController : Controller
     {
         private readonly MiContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public SecretariasController(MiContext context)
+        public SecretariasController(MiContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Secretarias
@@ -91,7 +95,7 @@ namespace LaptoManiaOficial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ci,NombreCompleto,Foto,UsuarioId")] Secretaria secretaria)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ci,NombreCompleto,FotoFile,UsuarioId")] Secretaria secretaria)
         {
             if (id != secretaria.Id)
             {
@@ -102,6 +106,11 @@ namespace LaptoManiaOficial.Controllers
             {
                 try
                 {
+                    if (secretaria.FotoFile != null)
+                    {
+                        await SubirFoto(secretaria);
+                    }
+
                     _context.Update(secretaria);
                     await _context.SaveChangesAsync();
                 }
@@ -120,6 +129,21 @@ namespace LaptoManiaOficial.Controllers
             }
             ViewData["UsuarioId"] = new SelectList(_context.Usuarios, "Id", "CorreoElectronico", secretaria.UsuarioId);
             return View(secretaria);
+        }
+
+        private async Task SubirFoto(Secretaria secretaria)
+        {
+            //formar el nombre de la foto
+            string wwRootPath = _webHostEnvironment.WebRootPath;
+            string extension = Path.GetExtension(secretaria.FotoFile!.FileName);
+            string nombreFoto = $"{secretaria.Id}{extension}";
+
+            secretaria.Foto = nombreFoto;
+
+            //copiar la foto en el proyecto del servidor
+            string path = Path.Combine($"{wwRootPath}/fotos/secretarias/", nombreFoto);
+            var fileStream = new FileStream(path, FileMode.Create);
+            await secretaria.FotoFile.CopyToAsync(fileStream);
         }
 
         // GET: Secretarias/Delete/5
