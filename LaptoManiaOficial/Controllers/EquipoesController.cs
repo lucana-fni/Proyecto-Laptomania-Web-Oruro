@@ -7,24 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LaptoManiaOficial.Controllers
 {
+    [Authorize]
     public class EquipoesController : Controller
     {
         private readonly MiContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EquipoesController(MiContext context)
+        public EquipoesController(MiContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Equipoes
         public async Task<IActionResult> Index()
         {
-              return _context.Equipos != null ? 
-                          View(await _context.Equipos.ToListAsync()) :
-                          Problem("Entity set 'MiContext.Equipos'  is null.");
+            return _context.Equipos != null ?
+                        View(await _context.Equipos.ToListAsync()) :
+                        Problem("Entity set 'MiContext.Equipos'  is null.");
         }
 
         // GET: Equipoes/Details/5
@@ -88,7 +92,7 @@ namespace LaptoManiaOficial.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Marca,Modelo,Precio,Disponibilidad,Foto")] Equipo equipo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Marca,Modelo,Precio,Disponibilidad,FotoFile")] Equipo equipo)
         {
             if (id != equipo.Id)
             {
@@ -99,6 +103,11 @@ namespace LaptoManiaOficial.Controllers
             {
                 try
                 {
+                    if (equipo.FotoFile != null)
+                    {
+                        await SubirFoto(equipo);
+                    }
+
                     _context.Update(equipo);
                     await _context.SaveChangesAsync();
                 }
@@ -116,6 +125,21 @@ namespace LaptoManiaOficial.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(equipo);
+        }
+
+        private async Task SubirFoto(Equipo equipo)
+        {
+            //formar el nombre de la foto
+            string wwRootPath = _webHostEnvironment.WebRootPath;
+            string extension = Path.GetExtension(equipo.FotoFile!.FileName);
+            string nombreFoto = $"{equipo.Id}{extension}";
+
+            equipo.Foto = nombreFoto;
+
+            //copiar la foto en el proyecto del servidor
+            string path = Path.Combine($"{wwRootPath}/fotos/equipos/", nombreFoto);
+            var fileStream = new FileStream(path, FileMode.Create);
+            await equipo.FotoFile.CopyToAsync(fileStream);
         }
 
         // GET: Equipoes/Delete/5
@@ -150,14 +174,27 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Equipos.Remove(equipo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EquipoExists(int id)
         {
-          return (_context.Equipos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Equipos?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        //PARA REPORTES
+        public IActionResult ReporteEquiposDisponibles()
+        {
+            var equiposDisponibles = _context.Equipos.Where(e => e.Disponibilidad).ToList();
+            return View(equiposDisponibles);
+        }
+
+        public IActionResult ReporteEquiposNoDisponibles()
+        {
+            var equiposNoDisponibles = _context.Equipos.Where(e => !e.Disponibilidad).ToList();
+            return View(equiposNoDisponibles);
         }
     }
 }
