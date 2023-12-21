@@ -179,14 +179,14 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Secretarias.Remove(secretaria);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SecretariaExists(int id)
         {
-          return (_context.Secretarias?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Secretarias?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

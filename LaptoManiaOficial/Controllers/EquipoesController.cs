@@ -26,9 +26,9 @@ namespace LaptoManiaOficial.Controllers
         // GET: Equipoes
         public async Task<IActionResult> Index()
         {
-              return _context.Equipos != null ? 
-                          View(await _context.Equipos.ToListAsync()) :
-                          Problem("Entity set 'MiContext.Equipos'  is null.");
+            return _context.Equipos != null ?
+                        View(await _context.Equipos.ToListAsync()) :
+                        Problem("Entity set 'MiContext.Equipos'  is null.");
         }
 
         // GET: Equipoes/Details/5
@@ -174,14 +174,14 @@ namespace LaptoManiaOficial.Controllers
             {
                 _context.Equipos.Remove(equipo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EquipoExists(int id)
         {
-          return (_context.Equipos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Equipos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         //PARA REPORTES
