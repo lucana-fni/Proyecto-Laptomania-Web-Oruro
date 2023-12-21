@@ -1,0 +1,9 @@
+﻿/* Estilos para la página Home */
+body {
+    /* Ajusta la imagen de fondo y su ubicación */
+    background-image: url('/imagenes/fondo_3.jpg');
+    background-size: cover; /* Cubre todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* Agrega estilos adicionales si lo necesitas */
+    color: white;
+}
