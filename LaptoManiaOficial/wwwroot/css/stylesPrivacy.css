@@ -1,0 +1,11 @@
+﻿/* Estilos para la página de Política de Privacidad */
+body {
+    /* Ajusta la imagen de fondo y su ubicación */
+    background-image: url('/imagenes/fondo_3.jpg');
+    background-size: cover; /* Cubre todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* Ajusta el color del texto para que sea blanco */
+    color: #fff; /* Cambia el color del texto a blanco para que se vea sobre el fondo */
+    padding: 20px; /* Añade algo de espacio alrededor del contenido */
+    font-family: Arial, sans-serif; /* Define una fuente legible */
+}
