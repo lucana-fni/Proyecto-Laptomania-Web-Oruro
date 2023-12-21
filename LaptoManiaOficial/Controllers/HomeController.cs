@@ -6,6 +6,7 @@ namespace LaptoManiaOficial.Controllers
 {      
     //agregar autentificacion
     // para el administrador y secretaria
+    // par el ingreso
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
