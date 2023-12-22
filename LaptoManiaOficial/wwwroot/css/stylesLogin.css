@@ -10,14 +10,18 @@
     background-attachment: fixed;
 }
 
+
+
+
 .container {
     background: rgba(255, 255, 255, 0.1);
+    max-width: 1000px;
 }
     .container p {
         color: white;
     }
 .container form {
-    padding: 0 30px; /* Aumenta el relleno a los lados del formulario */
+    padding: 0 5px; /* Aumenta el relleno a los lados del formulario */
     box-sizing: border-box;
     
 }
@@ -31,6 +35,25 @@
         color: white;
     }
 
+/* Estilos para los inputs */
+input[type="email"],
+input[type="password"] {
+    color: black; /* Color de texto negro */
+    border: 1px solid white; /* Borde blanco */
+    padding: 5px 10px; /* Ajustar el espaciado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, transform 0.3s; /* Transición para hover */
+}
+
+    /* Estilo para hover en los inputs */
+    input[type="email"]:hover,
+    input[type="password"]:hover {
+        background-color: black; /* Fondo negro */
+        color: white; /* Texto blanco */
+        transform: scale(1.05); /* Efecto de escala al pasar el mouse */
+    }
+
+
 .img-logo {
     width: 200px;
     height: 200px;
@@ -38,3 +61,4 @@
     display: block;
     margin: -50px auto 20px;
 }
+
