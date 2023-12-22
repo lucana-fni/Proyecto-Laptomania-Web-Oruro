@@ -1,0 +1,51 @@
+﻿body {
+    /* Ajusta la imagen de fondo y su ubicación */
+    background-image: url('/imagenes/detalles_1.jpg');
+    background-size: cover; /* Cubre todo el fondo */
+    background-repeat: repeat-y; /* Repite la imagen solo verticalmente */
+}
+
+h1 {
+    color: #333; /* Color del título */
+}
+
+h4 {
+    color: #666; /* Color del subtítulo */
+}
+
+.container {
+    margin: 50px auto;
+    padding: 20px;
+    width: 60%;
+    backdrop-filter: blur(5px); /* Aplicar el efecto de desenfoque */
+    background: rgba(47, 128, 237, 0.3); /* Fondo semitransparente azul */
+    border-radius: 10px; /* Borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para resaltar el contenedor */
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.col-sm-2,
+.col-sm-10 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.col-sm-2 {
+    color: #333; /* Color de las etiquetas del formulario */
+    font-weight: bold;
+}
+
+.col-sm-10 {
+    color: #333; /* Color del texto del formulario */
+}
+
+a {
+    color: #333; /* Color de los enlaces */
+}
+
+    a:hover {
+        color: #555; /* Color de los enlaces al pasar el ratón por encima */
+    }
