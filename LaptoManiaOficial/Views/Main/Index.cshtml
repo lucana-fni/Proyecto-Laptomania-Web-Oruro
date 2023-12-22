@@ -1,0 +1,85 @@
+﻿@model IEnumerable<LaptoManiaOficial.Models.Equipo>
+
+@{
+    ViewData["Title"] = "Main";
+    Layout = null; // Esto evita que se use el diseño (layout)
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCTOS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+        }
+
+            .product-card:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        .product-image img {
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-details {
+            padding: 15px;
+        }
+
+            .product-details h3 {
+                margin-top: 0;
+            }
+
+        .product-subtitle {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .btn-login {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center">LAPTOPS</h1>
+        <hr />
+
+        <div class="row">
+            @foreach (var equipo in Model)
+            {
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <div class="product-image">
+                            @if (!string.IsNullOrEmpty(equipo.Foto))
+                            {
+                                <img src="~/fotos/equipos/@equipo.Foto" class="img-fluid" alt="Foto del Producto" />
+                            }
+                        </div>
+                        <div class="product-details">
+                            <h3>@Html.DisplayFor(modelItem => equipo.Modelo)</h3>
+                            <p class="product-subtitle">@Html.DisplayFor(modelItem => equipo.Marca)</p>
+                            <p><strong>Código:</strong> @Html.DisplayFor(modelItem => equipo.Codigo)</p>
+                            <p><strong>Precio:</strong> @Html.DisplayFor(modelItem => equipo.Precio)</p>
+                            <p><strong>Disponibilidad:</strong> @Html.DisplayFor(modelItem => equipo.Disponibilidad)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-right fixed-top pt-3 pr-3">
+            <a href="/Login/Index" class="btn btn-primary btn-login">Iniciar Sesión</a>
+        </div>
+    </div>
+
+</body>
+</html>
