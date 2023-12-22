@@ -4,8 +4,20 @@
     ViewData["Title"] = "Index";
 }
 <link rel="stylesheet" href="~/css/stylesRegistros.css" />
-<h1>Clientes Registrados</h1>
 
+<h1>Clientes Registrados</h1>
+<form asp-action="Index" asp-controller="Clientes" method="get">
+    <div class="row">
+        <div class="col-sm-10 form-group">
+            <label for="search" class="text-black">Buscar por Nombre o Ci</label>
+            <input name="search" id="search" class="form-control" />
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-dark mt-4">Buscar</button>
+        </div>
+    </div>
+</form>
+<br />
 <p>
     <a asp-action="Create">Crear nuevo Registro</a>
 </p>
