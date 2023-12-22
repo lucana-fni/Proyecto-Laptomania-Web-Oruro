@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LaptoManiaOficial.Controllers
 {
@@ -24,10 +25,27 @@ namespace LaptoManiaOficial.Controllers
         }
 
         // GET: Secretarias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var miContext = _context.Secretarias.Include(s => s.Usuario);
-            return View(await miContext.ToListAsync());
+            ICollection<Secretaria> secretarias;
+
+            if (search.IsNullOrEmpty())
+            {
+                secretarias = await _context.Secretarias
+                    .OrderBy(x => x.NombreCompleto)
+                    .ToListAsync();
+            }
+            else
+            {
+                secretarias = await _context.Secretarias
+                    .Where(x => EF.Functions.Like(x.Ci, $"%{search}%") || x.NombreCompleto.Contains(search))
+                    .OrderBy(x => x.NombreCompleto)
+                    .ToListAsync();
+            }
+
+            return _context.Secretarias != null ?
+                        View(secretarias) :
+                        Problem("Entity set 'MiContext.Secretarias' is null.");
         }
 
         // GET: Secretarias/Details/5
