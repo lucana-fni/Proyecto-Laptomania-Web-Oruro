@@ -4,15 +4,19 @@
 @{
     ViewData["Title"] = "ReporteMensual";
 }
-
+<!--
+<link rel="stylesheet" href="~/css/stylesMensuales.css" />
+-->
 <h1>Reporte Mensual</h1>
 
 @for (int mes = 0; mes < Model.Count; mes++)
 {
     decimal suma = 0;
+    <div class="espacio">
     <h2>
         @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes + 1)
     </h2>
+    <div class="container-inf">
     <table class="table">
         <thead>
             <tr>
@@ -65,6 +69,8 @@
 
         </tbody>
     </table>
+    </div>
     <div>Total: @suma</div>
+    </div>
 }
 

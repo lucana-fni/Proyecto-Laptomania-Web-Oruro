@@ -1,0 +1,72 @@
+﻿body {
+    /* Ajusta la imagen de fondo y su ubicación */
+    background-image: url('/imagenes/editar_1.jpg');
+    background-size: cover; /* Cubre todo el fondo */
+    background-repeat: repeat-y; /* Repite la imagen solo verticalmente */
+    
+}
+/* Estilos para el formulario de edición */
+h1 {
+    color: #333; /* Color del título */
+}
+
+h4 {
+    color: #666; /* Color del subtítulo */
+}
+
+.container-inf {
+    padding: 20px;
+    backdrop-filter: blur(5px); /* Aplicar el efecto de desenfoque */
+    background: rgba(255, 255, 255, 0.6); /* Fondo semitransparente */
+    border-radius: 10px; /* Borde redondeado */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para resaltar el contenedor */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Espacio entre cada grupo de formulario */
+}
+
+.control-label {
+    color: #333; /* Color de las etiquetas del formulario */
+}
+
+.form-control {
+    border: 1px solid #ccc; /* Borde del campo de entrada */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 8px; /* Espaciado interno */
+}
+
+select.form-control {
+    width: 100%; /* Ancho completo para selects */
+}
+
+.btn {
+    padding: 10px 20px; /* Espaciado dentro del botón */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.btn-primary {
+    background-color: #333; /* Color de fondo del botón primario */
+    color: #fff; /* Color del texto del botón primario */
+    border: 1px solid #333; /* Borde del botón primario */
+}
+
+    .btn-primary:hover {
+        background-color: #555; /* Color de fondo al pasar el ratón por encima */
+        border: 1px solid #555; /* Cambio de borde al pasar el ratón por encima */
+    }
+
+.btn-danger {
+    background-color: #cc0000; /* Color de fondo del botón de peligro */
+    color: #fff; /* Color del texto del botón de peligro */
+    border: 1px solid #cc0000; /* Borde del botón de peligro */
+}
+
+    .btn-danger:hover {
+        background-color: #ff3333; /* Color de fondo al pasar el ratón por encima */
+        border: 1px solid #ff3333; /* Cambio de borde al pasar el ratón por encima */
+    }
+
+.text-white {
+    color: #fff !important; /* Color de texto blanco importante */
+}

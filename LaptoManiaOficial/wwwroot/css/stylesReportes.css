@@ -1,0 +1,76 @@
+﻿/* Estilos para la página de Registro de Usuarios */
+body {
+    /* Ajusta la imagen de fondo y su ubicación */
+    background-image: url('/imagenes/registros_1.jpg');
+    background-size: cover; /* Cubre todo el fondo */
+    background-repeat: repeat-y; /* Repite la imagen solo verticalmente */
+    /* Agrega estilos adicionales si lo necesitas */
+    color: black;
+}
+
+
+h1 {
+    color: #0066cc; /* Color del título */
+}
+
+p a {
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    padding: 5px 10px; /* Añade espacio alrededor del enlace */
+    background-color: #0066cc; /* Color de fondo del enlace */
+    color: #fff; /* Color del texto del enlace */
+    border-radius: 3px; /* Borde redondeado */
+}
+
+    p a:hover {
+        background-color: #004080; /* Cambia el color de fondo al pasar el ratón por encima */
+    }
+
+
+/* Estilos para la tabla de registros */
+.container-inf {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: black; /* Color del texto principal */
+}
+
+    .container-inf table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .container-inf thead {
+        background: rgba(47, 128, 237, 0.7); /* Azul - puedes ajustar los valores RGB según prefieras */
+    }
+
+    /* Estilos para la tabla de registros */
+    .container-inf th {
+        font-family: monserrat;
+        padding: 20px 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        overflow: visible; /* Permitir que el texto se muestre completo */
+        white-space: nowrap; /* Evitar el salto de línea */
+        max-width: none; /* Sin límite de ancho máximo */
+    }
+
+
+    .container-inf td {
+        font-family: monserrat;
+        padding: 15px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        background: rgba(47, 128, 237, 0.2); /* Azul - Ajusta la transparencia y tonalidad según necesites */
+        color: black; /* Cambia el color del texto de las celdas a negro */
+    }
+
+    .container-inf tr:hover {
+        background: rgba(47, 128, 237, 0.5); /* Azul con un poco más de opacidad al pasar el ratón */
+        overflow: visible;
+        white-space: normal;
+        max-width: none;
+        z-index: 1;
+    }

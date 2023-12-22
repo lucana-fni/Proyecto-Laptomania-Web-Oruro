@@ -37,6 +37,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//agregando autentificacion 
+// se agrego de forma manual
 app.UseAuthentication();
 app.UseAuthorization();
 
