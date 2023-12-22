@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = "Details";
 }
+<link rel="stylesheet" href="~/css/stylesDetalles.css" />
 
 <h1>Detalles</h1>
+
 
 <div>
     <h4>Usuario</h4>
@@ -37,6 +39,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success text-white" >Editar</a> |
+    <a asp-action="Index" class="btn btn-danger text-white">Volver al Registro</a>
 </div>
