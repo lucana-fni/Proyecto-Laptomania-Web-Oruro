@@ -7,7 +7,7 @@
 <h1>Registro de Ventas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear nuevo Registro</a>
 </p>
 <div class="container-inf">
 <table class="table">
@@ -76,8 +76,8 @@
                     @Html.DisplayFor(modelItem => item.Equipo.Precio)
                 </td>
                 <td>
-                    
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info text-dark">Recibo</a>
+
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success text-white">Recibo</a>
                     
                 </td>
             </tr>

@@ -3,10 +3,11 @@ body {
     /* Ajusta la imagen de fondo y su ubicación */
     background-image: url('/imagenes/usuarios_1.jpg');
     background-size: cover; /* Cubre todo el fondo */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-repeat: repeat-y; /* Repite la imagen solo verticalmente */
     /* Agrega estilos adicionales si lo necesitas */
     color: white;
 }
+
 
 h1 {
     color: #0066cc; /* Color del título */
