@@ -9,7 +9,8 @@ using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
 
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.IdentityModel.Tokens;
+//Caguama
 
 namespace LaptoManiaOficial.Controllers
 {
@@ -24,11 +25,27 @@ namespace LaptoManiaOficial.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
+            ICollection<Cliente> clientes;
+
+            if (search.IsNullOrEmpty())
+            {
+                clientes = await _context.Clientes
+                    .OrderBy(x => x.NombreCompleto)
+                    .ToListAsync();
+            }
+            else
+            {
+                clientes = await _context.Clientes
+                    .Where(x => EF.Functions.Like(x.Ci, $"%{search}%") || x.NombreCompleto.Contains(search))
+                    .OrderBy(x => x.NombreCompleto)
+                    .ToListAsync();
+            }
+
             return _context.Clientes != null ?
-                        View(await _context.Clientes.ToListAsync()) :
-                        Problem("Entity set 'MiContext.Clientes'  is null.");
+                        View(clientes) :
+                        Problem("Entity set 'MiContext.Clientes' is null.");
         }
 
         // GET: Clientes/Details/5
