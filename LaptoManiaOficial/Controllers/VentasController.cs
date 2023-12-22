@@ -9,6 +9,7 @@ using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
 using Microsoft.AspNetCore.Authorization;
 using NuGet.Packaging.Signing;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LaptoManiaOficial.Controllers
 {
@@ -23,10 +24,36 @@ namespace LaptoManiaOficial.Controllers
         }
 
         // GET: Ventas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var miContext = _context.Ventas.Include(v => v.Cliente).Include(v => v.Equipo).Include(v => v.Usuario);
-            return View(await miContext.ToListAsync());
+            ICollection<Venta> ventas;
+
+            if (search.IsNullOrEmpty())
+            {
+                ventas = await _context.Ventas
+                    .Include(v => v.Usuario)
+                    .Include(v => v.Cliente)
+                    .Include(v => v.Equipo)
+                    .OrderByDescending(v => v.FechaVenta)
+                    .ToListAsync();
+            }
+            else
+            {
+                ventas = await _context.Ventas
+                    .Include(v => v.Usuario)
+                    .Include(v => v.Cliente)
+                    .Include(v => v.Equipo)
+                    .Where(v => EF.Functions.Like(v.Usuario.NombreCompleto, $"%{search}%") ||
+                                EF.Functions.Like(v.Cliente.NombreCompleto, $"%{search}%") ||
+                                EF.Functions.Like(v.Equipo.Modelo, $"%{search}%") ||
+                                EF.Functions.Like(v.Equipo.Marca, $"%{search}%"))
+                    .OrderByDescending(v => v.FechaVenta)
+                    .ToListAsync();
+            }
+
+            return _context.Ventas != null ?
+                        View(ventas) :
+                        Problem("Entity set 'MiContext.Ventas' is null.");
         }
 
         // GET: Ventas/Details/5
