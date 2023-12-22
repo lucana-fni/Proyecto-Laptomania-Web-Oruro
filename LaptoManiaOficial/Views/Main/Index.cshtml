@@ -2,19 +2,23 @@
 @{
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRODUCTOS</title>
+    <title>LaptoMania Web Oruro</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            background: url('../imagenes/fondo_negro.jpg') center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
+            color: #ffffff; 
         }
 
         .header-container {
@@ -24,18 +28,18 @@
 
         .header-image img {
             width: 100%;
-            max-height: 200px; /* Ajusta la altura según sea necesario */
+            max-height: 200px;
             border-bottom: 1px solid #ddd;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            background-color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente negro */
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin-top: -50px; /* Ajusta según sea necesario */
+            margin-top: -50px;
         }
 
         .product-card {
@@ -44,16 +48,16 @@
             overflow: hidden;
             margin-bottom: 20px;
             transition: box-shadow 0.3s;
-            background-color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo semitransparente negro */
         }
 
             .product-card:hover {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
             }
 
         .product-image img {
             width: 100%;
-            max-height: 150px; /* Ajusta según sea necesario */
+            max-height: 150px;
             border-bottom: 1px solid #ddd;
         }
 
@@ -63,12 +67,19 @@
 
             .product-details h3 {
                 margin-top: 0;
-                color: #007bff; /* Color azul */
+                color: #007bff;
+                font-size: 20px; /* Aumenta el tamaño del título */
             }
 
         .product-subtitle {
-            font-size: 14px;
-            color: #777;
+            font-size: 16px; /* Aumenta el tamaño del subtítulo */
+            color: #ccc; /* Color gris para el subtítulo */
+        }
+
+        .product-details p {
+            font-size: 14px; /* Ajusta el tamaño del texto */
+            margin-bottom: 8px;
+            color: #ccc; /* Color gris para el texto */
         }
 
         .btn-login {
@@ -78,41 +89,59 @@
         .text-center {
             text-align: center;
         }
+
+        h1 {
+            font-size: 40px; /* Aumenta el tamaño del título principal */
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 30px; /* Aumenta el tamaño de los títulos secundarios */
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border-top: 2px solid #fff; /* Línea divisoria en blanco */
+        }
+
     </style>
 </head>
 <body>
-    <div class="header-container">
-        <img src="~/imagenes/Main.jpg" class="header-image" alt="Encabezado" />
-    </div>
-
     <div class="container mt-5">
-        <h1 class="text-center">LAPTOPS</h1>
+        <h1 class="text-center">LaptoMania Web Oruro</h1>
         <hr />
+        <div class="header-container">
+            <img src="~/imagenes/fondo_compu.jpg" class="header-image" alt="Encabezado" />
+        </div>
 
-        <div class="row">
-            @foreach (var equipo in Model)
-            {
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <div class="product-image">
-                            @if (!string.IsNullOrEmpty(equipo.Foto))
-                            {
-                                <img src="~/fotos/equipos/@equipo.Foto" class="img-fluid" alt="Foto del Producto" />
-                            }
-                        </div>
-                        <div class="product-details">
-                            <h3>@Html.DisplayFor(modelItem => equipo.Modelo)</h3>
-                            <p class="product-subtitle">@Html.DisplayFor(modelItem => equipo.Marca)</p>
-                            <p><strong>Código:</strong> @Html.DisplayFor(modelItem => equipo.Codigo)</p>
-                            <p><strong>Precio:</strong> @Html.DisplayFor(modelItem => equipo.Precio)</p>
-                            <p><strong>Disponibilidad:</strong> @Html.DisplayFor(modelItem => equipo.Disponibilidad)</p>
+        <div class="container mt-5">
+            <h2 class="text-center">PRODUCTOS</h2>
+            <hr />
+
+            <div class="row">
+                @foreach (var equipo in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <div class="product-image">
+                                @if (!string.IsNullOrEmpty(equipo.Foto))
+                                {
+                                    <img src="~/fotos/equipos/@equipo.Foto" class="img-fluid" alt="Foto del Producto" />
+                                }
+                            </div>
+                            <div class="product-details">
+                                <h3>@Html.DisplayFor(modelItem => equipo.Modelo)</h3>
+                                <p class="product-subtitle">@Html.DisplayFor(modelItem => equipo.Marca)</p>
+                                <p><strong>Código:</strong> @Html.DisplayFor(modelItem => equipo.Codigo)</p>
+                                <p><strong>Precio:</strong> @Html.DisplayFor(modelItem => equipo.Precio)</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
-        <div class="text-right fixed-top pt-3 pr-3">
-            <a href="/Login/Index" class="btn btn-primary btn-login">Iniciar Sesión</a>
+                }
+            </div>
+            <div class="text-center mt-3">
+                <a href="/Login/Index" class="btn btn-dark btn-lg">Iniciar Sesión</a>
+            </div>
         </div>
     </div>
 </body>
