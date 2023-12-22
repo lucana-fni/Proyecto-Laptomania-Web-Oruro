@@ -32,15 +32,17 @@ namespace LaptoManiaOficial.Controllers
             if (search.IsNullOrEmpty())
             {
                 secretarias = await _context.Secretarias
-                    .OrderBy(x => x.NombreCompleto)
-                    .ToListAsync();
+            .Include(s => s.Usuario) // Incluye la entidad relacionada Usuario
+            .OrderBy(s => s.NombreCompleto)
+            .ToListAsync();
             }
             else
             {
                 secretarias = await _context.Secretarias
-                    .Where(x => EF.Functions.Like(x.Ci, $"%{search}%") || x.NombreCompleto.Contains(search))
-                    .OrderBy(x => x.NombreCompleto)
-                    .ToListAsync();
+            .Include(s => s.Usuario) // Incluye la entidad relacionada Usuario
+            .Where(s => EF.Functions.Like(s.Ci, $"%{search}%") || s.NombreCompleto.Contains(search))
+            .OrderBy(s => s.NombreCompleto)
+            .ToListAsync();
             }
 
             return _context.Secretarias != null ?
