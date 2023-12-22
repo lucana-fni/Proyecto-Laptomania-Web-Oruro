@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LaptoManiaOficial.Contexto;
 using LaptoManiaOficial.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LaptoManiaOficial.Controllers
 {
@@ -24,11 +25,27 @@ namespace LaptoManiaOficial.Controllers
         }
 
         // GET: Equipoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
+            ICollection<Equipo> equipos;
+
+            if (search.IsNullOrEmpty())
+            {
+                equipos = await _context.Equipos
+                    .OrderBy(x => x.Modelo)
+                    .ToListAsync();
+            }
+            else
+            {
+                equipos = await _context.Equipos
+                    .Where(x => EF.Functions.Like(x.Modelo, $"%{search}%") || EF.Functions.Like(x.Marca, $"%{search}%") || EF.Functions.Like(x.Codigo, $"%{search}%"))
+                    .OrderBy(x => x.Modelo)
+                    .ToListAsync();
+            }
+
             return _context.Equipos != null ?
-                        View(await _context.Equipos.ToListAsync()) :
-                        Problem("Entity set 'MiContext.Equipos'  is null.");
+                        View(equipos) :
+                        Problem("Entity set 'MiContext.Equipos' is null.");
         }
 
         // GET: Equipoes/Details/5
