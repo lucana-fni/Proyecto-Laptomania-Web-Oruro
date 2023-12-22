@@ -1,10 +1,7 @@
 ﻿@model IEnumerable<LaptoManiaOficial.Models.Equipo>
-
 @{
-    ViewData["Title"] = "Main";
-    Layout = null; // Esto evita que se use el diseño (layout)
+    Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +10,41 @@
     <title>PRODUCTOS</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-container {
+            position: relative;
+            text-align: center;
+        }
+
+        .header-image img {
+            width: 100%;
+            max-height: 200px; /* Ajusta la altura según sea necesario */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: -50px; /* Ajusta según sea necesario */
+        }
+
         .product-card {
             border: 1px solid #ddd;
             border-radius: 10px;
             overflow: hidden;
             margin-bottom: 20px;
             transition: box-shadow 0.3s;
+            background-color: #ffffff;
         }
 
             .product-card:hover {
@@ -27,6 +53,7 @@
 
         .product-image img {
             width: 100%;
+            max-height: 150px; /* Ajusta según sea necesario */
             border-bottom: 1px solid #ddd;
         }
 
@@ -36,6 +63,7 @@
 
             .product-details h3 {
                 margin-top: 0;
+                color: #007bff; /* Color azul */
             }
 
         .product-subtitle {
@@ -46,9 +74,16 @@
         .btn-login {
             margin-top: 10px;
         }
+
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <div class="header-container">
+        <img src="~/imagenes/Main.jpg" class="header-image" alt="Encabezado" />
+    </div>
 
     <div class="container mt-5">
         <h1 class="text-center">LAPTOPS</h1>
@@ -80,6 +115,5 @@
             <a href="/Login/Index" class="btn btn-primary btn-login">Iniciar Sesión</a>
         </div>
     </div>
-
 </body>
 </html>
