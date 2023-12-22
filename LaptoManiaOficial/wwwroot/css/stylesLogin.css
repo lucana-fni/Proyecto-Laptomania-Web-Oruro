@@ -1,0 +1,40 @@
+﻿body {
+    background: url('/imagenes/login_3.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+}
+    .container p {
+        color: white;
+    }
+.container form {
+    padding: 0 30px; /* Aumenta el relleno a los lados del formulario */
+    box-sizing: border-box;
+    
+}
+    .container form label {
+        color:white;
+    }
+    .container h1 {
+        color:white;
+    }
+    .container h5 {
+        color: white;
+    }
+
+.img-logo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: -50px auto 20px;
+}
