@@ -10,7 +10,7 @@ using LaptoManiaOficial.Models;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-
+//Caguama
 
 namespace LaptoManiaOficial.Controllers
 {
